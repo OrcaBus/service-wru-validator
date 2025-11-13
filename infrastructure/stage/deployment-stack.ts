@@ -57,6 +57,7 @@ export class WruValidatorStack extends Stack {
     this.baseLayer = new PythonLayerVersion(this, 'BaseLayer', {
       entry: path.join(__dirname, '../../app/'),
       compatibleRuntimes: [this.lambdaRuntimePythonVersion],
+      compatibleArchitectures: [Architecture.ARM_64],
       description: 'Base layer with common dependencies',
     });
 
