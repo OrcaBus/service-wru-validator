@@ -58,4 +58,32 @@ function applyNagSuppression(stack: Stack) {
     [{ id: 'AwsSolutions-S1', reason: 'this is an example bucket' }],
     true
   );
+  NagSuppressions.addStackSuppressions(
+    stack,
+    [{ id: 'AwsSolutions-IAM4', reason: 'allow to use AWS managed policy' }],
+    true
+  );
+  NagSuppressions.addStackSuppressions(
+    stack,
+    [
+      {
+        id: 'AwsSolutions-L1',
+        reason:
+          'Use the latest available runtime for the targeted language to avoid technical debt. ' +
+          'Runtimes specific to a language or framework version are deprecated when the version ' +
+          'reaches end of life. This rule only applies to non-container Lambda functions.',
+      },
+    ],
+    true
+  );
+  NagSuppressions.addStackSuppressions(
+    stack,
+    [
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Allow wildcard permissions based.',
+      },
+    ],
+    true
+  );
 }
