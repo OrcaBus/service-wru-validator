@@ -2,7 +2,7 @@ import { App, Aspects, Stack } from 'aws-cdk-lib';
 import { Annotations, Match } from 'aws-cdk-lib/assertions';
 import { SynthesisMessage } from 'aws-cdk-lib/cx-api';
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
-import { ManualExecutionHandlerStack } from '../infrastructure/stage/deployment-stack';
+import { WruValidatorStack } from '../infrastructure/stage/deployment-stack';
 import { getStackProps } from '../infrastructure/stage/config';
 
 function synthesisMessageToString(sm: SynthesisMessage): string {
@@ -13,7 +13,7 @@ describe('cdk-nag-stateless-toolchain-stack', () => {
   const app = new App({});
 
   // You should configure all stack (sateless, stateful) to be tested
-  const deployStack = new ManualExecutionHandlerStack(app, 'ManualExecutionHandlerStack', {
+  const deployStack = new WruValidatorStack(app, 'WruValidatorStack', {
     // Pick the prod environment to test as it is the most strict
     // ...getStackProps('PROD'),
     ...getStackProps('PROD'),
