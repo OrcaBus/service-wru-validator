@@ -18,6 +18,7 @@ fix-all: fix
 
 install:
 	@pnpm install --frozen-lockfile
+# 	@pip install pre-commit
 
 test:
 	@pnpm test
