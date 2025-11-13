@@ -83,8 +83,8 @@ export class WruValidatorStack extends Stack {
       new PolicyStatement({
         actions: ['schemas:DescribeSchema', 'schemas:GetDiscoveredSchema', 'schemas:ListSchemas'],
         resources: [
-          `arn:aws:schemas:${this.region}:${this.account}:registry/discovered-schemas`,
-          `arn:aws:schemas:${this.region}:${this.account}:schema/discovered-schemas/*`,
+          `arn:aws:schemas:${this.region}:${this.account}:registry/*`,
+          `arn:aws:schemas:${this.region}:${this.account}:schema/*/*`,
         ],
       })
     );
