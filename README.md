@@ -1,34 +1,33 @@
 Template Service
 ================================================================================
 
-- [Template Service](#template-service)
-  - [Service Description](#service-description)
-    - [Name \& responsibility](#name--responsibility)
-    - [Description](#description)
-    - [API Endpoints](#api-endpoints)
-    - [Consumed Events](#consumed-events)
-    - [Published Events](#published-events)
-    - [(Internal) Data states \& persistence model](#internal-data-states--persistence-model)
-    - [Major Business Rules](#major-business-rules)
-    - [Permissions \& Access Control](#permissions--access-control)
-    - [Change Management](#change-management)
-      - [Versioning strategy](#versioning-strategy)
-      - [Release management](#release-management)
-  - [Infrastructure \& Deployment](#infrastructure--deployment)
-    - [Stateful](#stateful)
-    - [Stateless](#stateless)
-    - [CDK Commands](#cdk-commands)
-    - [Stacks](#stacks)
-  - [Development](#development)
-    - [Project Structure](#project-structure)
-    - [Setup](#setup)
-      - [Requirements](#requirements)
-      - [Install Dependencies](#install-dependencies)
-      - [First Steps](#first-steps)
-    - [Conventions](#conventions)
-    - [Linting \& Formatting](#linting--formatting)
-    - [Testing](#testing)
-  - [Glossary \& References](#glossary--references)
+- [Service Description](#service-description)
+  - [Name \& responsibility](#name--responsibility)
+  - [Description](#description)
+  - [API Endpoints](#api-endpoints)
+  - [Consumed Events](#consumed-events)
+  - [Published Events](#published-events)
+  - [(Internal) Data states \& persistence model](#internal-data-states--persistence-model)
+  - [Major Business Rules](#major-business-rules)
+  - [Permissions \& Access Control](#permissions--access-control)
+  - [Change Management](#change-management)
+    - [Versioning strategy](#versioning-strategy)
+    - [Release management](#release-management)
+- [Infrastructure \& Deployment](#infrastructure--deployment)
+  - [Stateful](#stateful)
+  - [Stateless](#stateless)
+  - [CDK Commands](#cdk-commands)
+  - [Stacks](#stacks)
+- [Development](#development)
+  - [Project Structure](#project-structure)
+  - [Setup](#setup)
+    - [Requirements](#requirements)
+    - [Install Dependencies](#install-dependencies)
+    - [First Steps](#first-steps)
+  - [Conventions](#conventions)
+  - [Linting \& Formatting](#linting--formatting)
+  - [Testing](#testing)
+- [Glossary \& References](#glossary--references)
 
 
 Service Description
@@ -104,15 +103,21 @@ You can access CDK commands using the `pnpm` wrapper script.
 
 The type of stack to deploy is determined by the context set in the `./bin/deploy.ts` file. This ensures the correct stack is executed based on the provided context.
 
-For example:
-
+Pattern:
 ```sh
 # Deploy a stateless stack
-pnpm cdk-stateless <command>
-
-# Deploy a stateful stack
-pnpm cdk-stateful <command>
+pnpm cdk-stateless deploy -e < stackname >
 ```
+
+Examples:
+```sh
+# Deploy the BuildPipeline stack
+pnpm cdk-stateless deploy -e WruValidatorStateless
+
+# Manually deploy the development stack
+pnpm cdk-stateless deploy -e WruValidatorStateless/DeploymentPipeline/OrcaBusBeta/WruValidatorStack
+```
+
 
 ### Stacks
 
@@ -127,10 +132,10 @@ pnpm cdk-stateless ls
 Example output:
 
 ```sh
-OrcaBusStatelessServiceStack
-OrcaBusStatelessServiceStack/DeploymentPipeline/OrcaBusBeta/DeployStack (OrcaBusBeta-DeployStack)
-OrcaBusStatelessServiceStack/DeploymentPipeline/OrcaBusGamma/DeployStack (OrcaBusGamma-DeployStack)
-OrcaBusStatelessServiceStack/DeploymentPipeline/OrcaBusProd/DeployStack (OrcaBusProd-DeployStack)
+WruValidatorStateless
+WruValidatorStateless/DeploymentPipeline/OrcaBusBeta/WruValidatorStack (OrcaBusBeta-WruValidatorStack)
+WruValidatorStateless/DeploymentPipeline/OrcaBusGamma/WruValidatorStack (OrcaBusGamma-WruValidatorStack)
+WruValidatorStateless/DeploymentPipeline/OrcaBusProd/WruValidatorStack (OrcaBusProd-WruValidatorStack)
 ```
 
 
