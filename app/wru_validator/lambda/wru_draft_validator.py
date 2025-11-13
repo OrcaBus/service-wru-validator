@@ -100,11 +100,19 @@ def extract_payload(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         # EventBridge or direct JSON
         if 'detail' in event and 'detail-type' in event:
             logger.info("Payload found in EventBridge 'detail' key")
-            return event['detail']
+            return json.loads(event['detail'])
 
         if 'Detail' in event and 'DetailType' in event:
             logger.info("Payload found in EventBridge 'Detail' key (boto version)")
-            return event['Detail']
+            return json.loads(event['Detail'])
+
+        if 'Entries' in event and isinstance(event['Entries'], list):
+            if len(event['Entries']) == 1:
+                logger.info("Found 'Entries' wrapper, taking first entry")
+                return extract_payload(event['Entries'][0])
+            else:
+                logger.warning("Multiple entries found. Only single entry supported")
+                raise NotImplementedError("Multiple entries not supported")
 
         # Assume the entire event is the payload
         logger.info("Using entire event as payload")
