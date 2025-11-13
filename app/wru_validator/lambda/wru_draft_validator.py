@@ -351,24 +351,15 @@ def send_to_eventbridge(payload: Dict[str, Any]) -> Dict[str, Any]:
 
         # Prepare EventBridge event
         event_entry = {
-            'Source': EVENT_SOURCE,
+            'Source': EVENT_SOURCE,  # TODO: allow customization from input as long as it conform to conventions (e.g. orcabus.manual.<user>)
             'DetailType': DETAIL_TYPE,
             'Detail': json.dumps(payload),
             'EventBusName': EVENT_BUS_NAME
         }
 
-        # Add optional fields if present in payload
-        if 'resources' in payload:
-            event_entry['Resources'] = payload['resources']
-
         # Send to EventBridge
         logger.info(f"Emitting event: {event_entry}")
-        # response = eventbridge_client.put_events(Entries=[event_entry])
-        # TODO: remove after debugging
-        return {
-            'success': True,
-            'event_id': 'debug-event-id'
-        }
+        response = eventbridge_client.put_events(Entries=[event_entry])
 
         # Check for failures
         if response['FailedEntryCount'] > 0:
