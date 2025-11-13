@@ -16,6 +16,7 @@ schemas_client = boto3.client('schemas')
 
 EVENT_SOURCE = "orcabus.executionhandler"
 DETAIL_TYPE = "WorkflowRunUpdate"
+EVENT_BUS_NAME = os.environ.get('EVENT_BUS_NAME', 'default')
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     """
@@ -100,6 +101,10 @@ def extract_payload(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         if 'detail' in event and 'detail-type' in event:
             logger.info("Payload found in EventBridge 'detail' key")
             return event['detail']
+
+        if 'Detail' in event and 'DetailType' in event:
+            logger.info("Payload found in EventBridge 'Detail' key (boto version)")
+            return event['Detail']
 
         # Assume the entire event is the payload
         logger.info("Using entire event as payload")
@@ -334,15 +339,14 @@ def validate_payload(payload: Dict[str, Any], schema: Dict[str, Any]) -> Dict[st
 def send_to_eventbridge(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Send validated payload to EventBridge"""
     try:
-        event_bus_name = os.environ.get('EVENT_BUS_NAME', 'default')
-        logger.info(f"Using event bus: {event_bus_name}")
+        logger.info(f"Using event bus: {EVENT_BUS_NAME}")
 
         # Prepare EventBridge event
         event_entry = {
             'Source': EVENT_SOURCE,
             'DetailType': DETAIL_TYPE,
-            'Detail': json.dumps(payload.get('detail', payload)),
-            'EventBusName': event_bus_name
+            'Detail': json.dumps(payload),
+            'EventBusName': EVENT_BUS_NAME
         }
 
         # Add optional fields if present in payload
