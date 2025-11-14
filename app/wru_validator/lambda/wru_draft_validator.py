@@ -84,11 +84,6 @@ def extract_payload(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     logger.info(f"Extracting payload from {event}")
 
     try:
-        # Direct invocation with payload
-        if 'payload' in event:
-            logger.info("Payload found in 'payload' key")
-            return event['payload']
-
         # API Gateway event
         if 'body' in event:
             logger.info("Payload found in 'body' key")
