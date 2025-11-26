@@ -1,5 +1,5 @@
 {
-  "name": "template-service-base",
+  "name": "service-wru-validator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,25 +22,25 @@
   "license": "MIT",
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.13",
-    "aws-cdk": "^2.1006.0",
+    "@eslint/js": "^9.39.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "aws-cdk": "^2.1033.0",
     "cdk-nag": "^2.35.56",
-    "eslint": "^9.23.0",
-    "globals": "^16.0.0",
-    "jest": "^29.7.0",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "prettier": "^3.5.3",
     "test-js": "^0.0.4",
     "ts-jest": "^29.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.28.0"
+    "typescript-eslint": "^8.48.0"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.208.0",
-    "constructs": "^10.4.2",
-    "@orcabus/platform-cdk-constructs": "0.0.56",
-    "@aws-cdk/aws-lambda-python-alpha": "2.208.0-alpha.0"
+    "@aws-cdk/aws-lambda-python-alpha": "2.229.1-alpha.0",
+    "@orcabus/platform-cdk-constructs": "0.0.97",
+    "aws-cdk-lib": "^2.229.1",
+    "constructs": "^10.4.3"
   }
 }
