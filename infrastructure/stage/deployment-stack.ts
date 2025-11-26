@@ -6,6 +6,7 @@ import { EventBus, IEventBus } from 'aws-cdk-lib/aws-events';
 import { aws_lambda, Duration, Stack, StackProps } from 'aws-cdk-lib';
 import { PythonFunction, PythonLayerVersion } from '@aws-cdk/aws-lambda-python-alpha';
 import { ManagedPolicy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { EVENT_SCHEMA_REGISTRY_NAME } from '@orcabus/platform-cdk-constructs/shared-config/event-bridge';
 // import {
 // OrcaBusApiGateway,
 // OrcaBusApiGatewayProps,
@@ -50,7 +51,7 @@ export class WruValidatorStack extends Stack {
       POWERTOOLS_LOG_LEVEL: 'INFO',
       EVENT_BUS_NAME: props.mainBusName,
       SCHEMA_NAME: 'orcabus.workflowmanager@WorkflowRunUpdate',
-      SCHEMA_REGISTRY_NAME: 'orcabus.workflowmanager',
+      SCHEMA_REGISTRY_NAME: EVENT_SCHEMA_REGISTRY_NAME,
     };
 
     // Create base layer for Python dependencies
